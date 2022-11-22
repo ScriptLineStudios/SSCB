@@ -1,3 +1,5 @@
+#pragma once
+
 #include "sscb_virtual_machine.h"
 
 typedef enum {
@@ -8,6 +10,9 @@ typedef enum {
     INS_JMP = 4,
     INS_CMP = 5, 
     INS_JNZ = 6,
+    INS_LABELDEF = 7,
+    INS_FUNCTIONDEF = 8,
+    INS_FUNCTIONEXTERN = 9,
 } SSCB_Instruction;
 
 typedef enum {
@@ -41,17 +46,21 @@ typedef struct {
 #define ADD_INS_3(type, ...) instruction_add(create_instruction(type, 3, __VA_ARGS__));
 #define ADD_INS_4(type, ...) instruction_add(create_instruction(type, 4, __VA_ARGS__));
 
-#define PUSH(...) ADD_INS_1(INS_PUSH, __VA_ARGS__);
-#define POP(...)  ADD_INS_1(INS_POP, __VA_ARGS__);
-#define MOV(...)  ADD_INS_2(INS_MOV, __VA_ARGS__);
-#define CMP(...)  ADD_INS_2(INS_CMP, __VA_ARGS__);
-#define JMP(...)  ADD_INS_1(INS_JMP, __VA_ARGS__);
-#define JNZ(...)  ADD_INS_1(INS_JNZ, __VA_ARGS__);
+#define PUSH(...)           ADD_INS_1(INS_PUSH, __VA_ARGS__);
+#define POP(...)            ADD_INS_1(INS_POP, __VA_ARGS__);
+#define MOV(...)            ADD_INS_2(INS_MOV, __VA_ARGS__);
+#define CMP(...)            ADD_INS_2(INS_CMP, __VA_ARGS__);
+#define JMP(...)            ADD_INS_1(INS_JMP, __VA_ARGS__);
+#define JNZ(...)            ADD_INS_1(INS_JNZ, __VA_ARGS__);
+#define LABELDEF(...)       ADD_INS_1(INS_LABELDEF, __VA_ARGS__);
+#define FUNCTIONDEF(...)    ADD_INS_1(INS_FUNCTIONDEF, __VA_ARGS__);
+#define FUNCTIONEXTERN(...) ADD_INS_1(INS_FUNCTIONEXTERN, __VA_ARGS__);
 
 #define IMM(i) imm_operand(i)
 #define REG(r) reg_operand(r)
 #define MEM(m) mem_operand(m)
 #define LABEL(m) label_operand(m)
+#define FUNCTION(m) label_operand(m) //litrally just an alias
 
 void raise_fatal_error();
 SSCB_Instruction *malloc_instruction(SSCB_Instruction *dst, size_t size);
@@ -67,3 +76,5 @@ void print_instructions();
 
 SSCB_PackedInstruction create_instruction(SSCB_Instruction instruction, int num_operands, ...);
 SSCB_ErrorCode instruction_add(SSCB_PackedInstruction contents);
+void optimise_generated_instructions(int passes);
+

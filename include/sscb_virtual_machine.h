@@ -1,3 +1,5 @@
+#pragma once
+
 typedef enum {
     R1  =  0,
     R2  =  1, 

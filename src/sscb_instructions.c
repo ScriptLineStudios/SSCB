@@ -5,14 +5,15 @@
 #include <stdarg.h>
 
 #include "../include/sscb_instructions.h"
+#include "../include/sscb_optimizer.h"
+
+unsigned int instruction_num;
+SSCB_PackedInstruction *instructions;
 
 void raise_fatal_error() {
     fprintf(stderr, "SSCB FAILED WITH FATAL ERROR\n");
     exit(1);
 }
-
-unsigned int instruction_num;
-SSCB_PackedInstruction *instructions;
 
 char *get_instruction_as_string(SSCB_PackedInstruction instruction) {
     switch ((SSCB_Instruction)instruction.instruction_type) {
@@ -30,6 +31,12 @@ char *get_instruction_as_string(SSCB_PackedInstruction instruction) {
             return "CMP";
         case 6:
             return "JNZ";
+        case 7:
+            return "LABEL-DEF";
+        case 8:
+            return "FUNCTION-DEF";
+        case 9:
+            return "FUNCTION-EXTERN";
         default:
             return "UNKNOWN";
     }
@@ -41,7 +48,6 @@ void print_instructions() {
         SSCB_PackedInstruction ins = instructions[i];
         char *type = get_instruction_as_string(ins);
         printf("%s ", type);
-
 
         for (unsigned int j = 0; j < ins.num_operands; j++) {
             SSCB_Operand op = ins.operands[j];
@@ -133,4 +139,10 @@ SSCB_ErrorCode instruction_add(SSCB_PackedInstruction contents) {
     instructions[instruction_num - 1] = contents;
     instruction_num++;
     return OK;
+}
+
+void optimise_generated_instructions(int passes) {
+    OptimisationAnalysis analysis = optimize_instructions(instructions, instruction_num, passes);
+    instructions = analysis.new_instructions;
+    instruction_num = analysis.number_instructions;
 }
