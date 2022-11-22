@@ -7,7 +7,7 @@
 #include "../include/sscb_instructions.h"
 
 void raise_fatal_error() {
-    fprintf(stderr, "SSCB FAILED WITH FATAL ERROR");
+    fprintf(stderr, "SSCB FAILED WITH FATAL ERROR\n");
     exit(1);
 }
 
@@ -15,7 +15,7 @@ unsigned int instruction_num;
 SSCB_PackedInstruction *instructions;
 
 char *get_instruction_as_string(SSCB_PackedInstruction instruction) {
-    switch (instruction.instruction_type) {
+    switch ((SSCB_Instruction)instruction.instruction_type) {
         case 0:
             return "NO-OP";
         case 1:
@@ -24,6 +24,12 @@ char *get_instruction_as_string(SSCB_PackedInstruction instruction) {
             return "POP";
         case 3:
             return "MOV";
+        case 4:
+            return "JMP";
+        case 5:
+            return "CMP";
+        case 6:
+            return "JNZ";
         default:
             return "UNKNOWN";
     }
@@ -47,6 +53,9 @@ void print_instructions() {
             }
             else if (op.op_type == OP_MEM) {
                 printf("(MEM: %d) ", op.mem);
+            }
+            else if (op.op_type == OP_LABEL) {
+                printf("(LABEL: %s) ", op.label);
             }
         }
         printf("\n");
@@ -87,6 +96,13 @@ SSCB_Operand mem_operand(unsigned int mem_addr) {
     SSCB_Operand operand;
     operand.mem = mem_addr;
     operand.op_type = OP_MEM;
+    return operand;
+}
+
+SSCB_Operand label_operand(const char *label) {
+    SSCB_Operand operand;
+    operand.label = label;
+    operand.op_type = OP_LABEL;
     return operand;
 }
 

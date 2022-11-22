@@ -5,6 +5,9 @@ typedef enum {
     INS_PUSH = 1,
     INS_POP = 2,
     INS_MOV = 3,
+    INS_JMP = 4,
+    INS_CMP = 5, 
+    INS_JNZ = 6,
 } SSCB_Instruction;
 
 typedef enum {
@@ -15,7 +18,8 @@ typedef enum {
 typedef enum {
     OP_REG = 0,
     OP_IMM = 1,
-    OP_MEM = 3
+    OP_MEM = 3,
+    OP_LABEL = 4
 } SSCB_OperandType;
 
 typedef struct {
@@ -23,6 +27,7 @@ typedef struct {
     int imm;
     SSCB_Register reg;
     unsigned int mem;
+    const char *label;
 } SSCB_Operand;
 
 typedef struct {    
@@ -39,11 +44,14 @@ typedef struct {
 #define PUSH(...) ADD_INS_1(INS_PUSH, __VA_ARGS__);
 #define POP(...)  ADD_INS_1(INS_POP, __VA_ARGS__);
 #define MOV(...)  ADD_INS_2(INS_MOV, __VA_ARGS__);
-
+#define CMP(...)  ADD_INS_2(INS_CMP, __VA_ARGS__);
+#define JMP(...)  ADD_INS_1(INS_JMP, __VA_ARGS__);
+#define JNZ(...)  ADD_INS_1(INS_JNZ, __VA_ARGS__);
 
 #define IMM(i) imm_operand(i)
 #define REG(r) reg_operand(r)
 #define MEM(m) mem_operand(m)
+#define LABEL(m) label_operand(m)
 
 void raise_fatal_error();
 SSCB_Instruction *malloc_instruction(SSCB_Instruction *dst, size_t size);
@@ -53,6 +61,7 @@ SSCB_ErrorCode instruction_setup(void);
 SSCB_Operand reg_operand(SSCB_Register reg);
 SSCB_Operand imm_operand(int imm);
 SSCB_Operand mem_operand(unsigned int mem_addr);
+SSCB_Operand label_operand(const char *label);
 
 void print_instructions();
 
