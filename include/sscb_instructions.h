@@ -4,6 +4,7 @@ typedef enum {
     INS_NOP = 0,
     INS_PUSH = 1,
     INS_POP = 2,
+    INS_MOV = 3,
 } SSCB_Instruction;
 
 typedef enum {
@@ -30,7 +31,19 @@ typedef struct {
     unsigned num_operands; 
 } SSCB_PackedInstruction;
  
-#define ADD_INS(type, num, op) instruction_add(create_instruction(type, num, op));
+#define ADD_INS_1(type, ...) instruction_add(create_instruction(type, 1, __VA_ARGS__));
+#define ADD_INS_2(type, ...) instruction_add(create_instruction(type, 2, __VA_ARGS__));
+#define ADD_INS_3(type, ...) instruction_add(create_instruction(type, 3, __VA_ARGS__));
+#define ADD_INS_4(type, ...) instruction_add(create_instruction(type, 4, __VA_ARGS__));
+
+#define PUSH(...) ADD_INS_1(INS_PUSH, __VA_ARGS__);
+#define POP(...)  ADD_INS_1(INS_POP, __VA_ARGS__);
+#define MOV(...)  ADD_INS_2(INS_MOV, __VA_ARGS__);
+
+
+#define IMM(i) imm_operand(i)
+#define REG(r) reg_operand(r)
+#define MEM(m) mem_operand(m)
 
 void raise_fatal_error();
 SSCB_Instruction *malloc_instruction(SSCB_Instruction *dst, size_t size);

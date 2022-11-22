@@ -5,10 +5,11 @@
 
 int main(void) {
     instruction_setup();
-    ADD_INS(INS_PUSH, 1, imm_operand(1));
-    ADD_INS(INS_PUSH, 1, imm_operand(10));
-    ADD_INS(INS_PUSH, 1, reg_operand(R1));
 
+    PUSH(IMM(1));
+    POP(REG(R1));
+    MOV(REG(R1), IMM(100));
+    
     print_instructions();
     return 0;
 }

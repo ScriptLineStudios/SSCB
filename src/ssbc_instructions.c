@@ -14,13 +14,28 @@ void raise_fatal_error() {
 unsigned int instruction_num;
 SSCB_PackedInstruction *instructions;
 
+char *get_instruction_as_string(SSCB_PackedInstruction instruction) {
+    switch (instruction.instruction_type) {
+        case 0:
+            return "NO-OP";
+        case 1:
+            return "PUSH";
+        case 2:
+            return "POP";
+        case 3:
+            return "MOV";
+        default:
+            return "UNKNOWN";
+    }
+}   
+
 void print_instructions() {
     printf("Dumping Instructions...\n");
     for (unsigned int i = 0; i < instruction_num - 1; i++) {
         SSCB_PackedInstruction ins = instructions[i];
-        if (ins.instruction_type == INS_PUSH) {
-            printf("PUSH: ");
-        }   
+        char *type = get_instruction_as_string(ins);
+        printf("%s ", type);
+
 
         for (unsigned int j = 0; j < ins.num_operands; j++) {
             SSCB_Operand op = ins.operands[j];
