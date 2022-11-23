@@ -20,6 +20,7 @@ typedef enum {
     INS_CALL = 14,
     INS_RETURN = 15,
     INS_DB = 16,
+    INS_XOR = 17,
 } SSCB_Instruction;
 
 typedef enum {
@@ -63,14 +64,14 @@ typedef struct {
 #define LABELDEF(...)       ADD_INS_1(INS_LABELDEF, __VA_ARGS__);
 #define FUNCTIONDEF(...)    ADD_INS_1(INS_FUNCTIONDEF, __VA_ARGS__);
 #define FUNCTIONEXTERN(...) ADD_INS_1(INS_FUNCTIONEXTERN, __VA_ARGS__);
+#define XOR(...)            ADD_INS_2(INS_XOR, __VA_ARGS__);
 #define ADD(...)            ADD_INS_2(INS_ADD, __VA_ARGS__);
 #define SUB(...)            ADD_INS_2(INS_ADD, __VA_ARGS__);
 #define DIV(...)            ADD_INS_2(INS_ADD, __VA_ARGS__);
 #define MUL(...)            ADD_INS_2(INS_ADD, __VA_ARGS__);
 #define CALL(...)           ADD_INS_1(INS_CALL, __VA_ARGS__);
 #define RETURN()            ADD_INS_0(INS_RETURN);
-#define DEFINEBYTE(...)        ADD_INS_1(INS_DB, __VA_ARGS__);
-
+#define DEFINEBYTE(...)     ADD_INS_1(INS_DB, __VA_ARGS__);
 
 #define IMM(i) imm_operand(i)
 #define REG(r) reg_operand(r)

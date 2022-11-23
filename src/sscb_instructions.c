@@ -52,6 +52,8 @@ char *get_instruction_as_string(SSCB_PackedInstruction instruction) {
             return "RETURN";
         case 16:
             return "DEFINE BYTE";
+        case 17:
+            return "XOR";
         default:
             return "UNKNOWN";
     }

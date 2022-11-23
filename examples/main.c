@@ -7,24 +7,15 @@
 int main(void) {
     instruction_setup();
 
-    // MOV(REG(R1), IMM(10));
-    // MOV(REG(R2), IMM(20));
-    // CALL(FUNCTION("add"));
-    // PUSH(REG(RETURNREGISTER));
-    // RETURN();
+    FUNCTIONEXTERN(FUNCTION("printf"));
 
-    // FUNCTIONDEF(FUNCTION("add"));
-    // ADD(REG(R1), REG(R2));
-    // MOV(REG(RETURNREGISTER), REG(R1));
-    // RETURN();
-
-    // LABELDEF(STRING("string_%d", 10));
-    // DEFINEBYTE(STRING("\"Helllo World!\"", 10));
-    // DEFINEBYTE(IMM(0));
-    FUNCTIONEXTERN(FUNCTION("exit"));
-    MOV(REG(R1), IMM(0))
-    CALL(FUNCTION("exit"));
-
+    MOV(REG(R1), STRING("string_%d", 10)); 
+    XOR(REG(RETURNREGISTER), REG(RETURNREGISTER));
+    CALL(FUNCTION("printf"));
+    RETURN();
+    
+    LABELDEF(STRING("string_%d", 10));
+    DEFINEBYTE(STRING("`Helllo World!\\n`\n", 10));
 
     //optimise_generated_instructions(1); //TODO: make passes actually work
     print_instructions();
