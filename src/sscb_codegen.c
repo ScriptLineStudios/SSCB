@@ -14,6 +14,7 @@ void codegen_intel_x86_64_linux(SSCB_PackedInstruction *instructions, unsigned i
     FILE *file_ptr = fopen("codegen_intel_x86_64_linux.asm", "w");
     generate_intel_x86_64_linux_header(file_ptr);
 
+
     //TODO: find a way to reduce this from O(n^2)
     for (unsigned int i = 0; i < instruction_num - 1; i++) {
         SSCB_PackedInstruction ins = instructions[i];

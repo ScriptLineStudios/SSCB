@@ -60,7 +60,7 @@ char *get_instruction_as_string(SSCB_PackedInstruction instruction) {
 }   
 
 void print_instructions() {
-    printf("Dumping Instructions...\n");
+    printf("Dumping Instructions... %d\n", instruction_num);
     for (unsigned int i = 0; i < instruction_num - 1; i++) {
         SSCB_PackedInstruction ins = instructions[i];
         char *type = get_instruction_as_string(ins);
