@@ -38,6 +38,18 @@ char *get_instruction_as_string(SSCB_PackedInstruction instruction) {
             return "FUNCTION-DEF";
         case 9:
             return "FUNCTION-EXTERN";
+        case 10:
+            return "ADD";
+        case 11:
+            return "SUB";
+        case 12:
+            return "DIV";
+        case 13:
+            return "MUL";
+        case 14:
+            return "CALL";
+        case 15:
+            return "RETURN";
         default:
             return "UNKNOWN";
     }

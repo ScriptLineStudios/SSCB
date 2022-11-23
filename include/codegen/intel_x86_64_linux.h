@@ -15,7 +15,7 @@
 
 char *intel_x86_64_linux_registers[] = {"rax", "rbx"};
 char *intel_x86_64_linux_instructions[] = {
-    "nop", "push", "pop", "mov", "jmp", "cmp", "jnz", ":", ":", "extern" 
+    "nop", "push", "pop", "mov", "jmp", "cmp", "jnz", ":", ":", "extern", "add", "sub", "div", "mul", "call", "ret"
 };
 
 #define WRITE(...) fprintf(file_ptr, __VA_ARGS__)

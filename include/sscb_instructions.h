@@ -13,6 +13,12 @@ typedef enum {
     INS_LABELDEF = 7,
     INS_FUNCTIONDEF = 8,
     INS_FUNCTIONEXTERN = 9,
+    INS_ADD = 10,
+    INS_SUB = 11,
+    INS_DIV = 12,
+    INS_MUL = 13,
+    INS_CALL = 14,
+    INS_RETURN = 15
 } SSCB_Instruction;
 
 typedef enum {
@@ -41,6 +47,7 @@ typedef struct {
     unsigned int num_operands; 
 } SSCB_PackedInstruction;
  
+#define ADD_INS_0(type) instruction_add(create_instruction(type, 0));
 #define ADD_INS_1(type, ...) instruction_add(create_instruction(type, 1, __VA_ARGS__));
 #define ADD_INS_2(type, ...) instruction_add(create_instruction(type, 2, __VA_ARGS__));
 #define ADD_INS_3(type, ...) instruction_add(create_instruction(type, 3, __VA_ARGS__));
@@ -55,6 +62,12 @@ typedef struct {
 #define LABELDEF(...)       ADD_INS_1(INS_LABELDEF, __VA_ARGS__);
 #define FUNCTIONDEF(...)    ADD_INS_1(INS_FUNCTIONDEF, __VA_ARGS__);
 #define FUNCTIONEXTERN(...) ADD_INS_1(INS_FUNCTIONEXTERN, __VA_ARGS__);
+#define ADD(...)            ADD_INS_2(INS_ADD, __VA_ARGS__);
+#define SUB(...)            ADD_INS_2(INS_ADD, __VA_ARGS__);
+#define DIV(...)            ADD_INS_2(INS_ADD, __VA_ARGS__);
+#define MUL(...)            ADD_INS_2(INS_ADD, __VA_ARGS__);
+#define CALL(...)           ADD_INS_1(INS_CALL, __VA_ARGS__);
+#define RETURN()            ADD_INS_0(INS_RETURN);
 
 #define IMM(i) imm_operand(i)
 #define REG(r) reg_operand(r)
