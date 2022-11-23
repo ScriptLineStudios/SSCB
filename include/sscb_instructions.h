@@ -18,7 +18,8 @@ typedef enum {
     INS_DIV = 12,
     INS_MUL = 13,
     INS_CALL = 14,
-    INS_RETURN = 15
+    INS_RETURN = 15,
+    INS_DB = 16,
 } SSCB_Instruction;
 
 typedef enum {
@@ -68,12 +69,15 @@ typedef struct {
 #define MUL(...)            ADD_INS_2(INS_ADD, __VA_ARGS__);
 #define CALL(...)           ADD_INS_1(INS_CALL, __VA_ARGS__);
 #define RETURN()            ADD_INS_0(INS_RETURN);
+#define DEFINEBYTE(...)        ADD_INS_1(INS_DB, __VA_ARGS__);
+
 
 #define IMM(i) imm_operand(i)
 #define REG(r) reg_operand(r)
 #define MEM(m) mem_operand(m)
 #define LABEL(m) label_operand(m)
 #define FUNCTION(m) label_operand(m) //litrally just an alias
+#define STRING(m, ...) label_operand(m, __VA_ARGS__) //litrally just a fancy alias
 
 void raise_fatal_error();
 SSCB_Instruction *malloc_instruction(SSCB_Instruction *dst, size_t size);
@@ -83,7 +87,7 @@ SSCB_ErrorCode instruction_setup(void);
 SSCB_Operand reg_operand(SSCB_Register reg);
 SSCB_Operand imm_operand(int imm);
 SSCB_Operand mem_operand(unsigned int mem_addr);
-SSCB_Operand label_operand(const char *label);
+SSCB_Operand label_operand(const char *label, ...);
 
 void print_instructions();
 

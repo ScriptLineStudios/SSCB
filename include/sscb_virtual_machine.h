@@ -10,5 +10,6 @@ typedef enum {
     R7  =  6, 
     R8  =  7, 
     R9  =  8, 
-    R10 =  9
+    R10 =  9, 
+    RETURNREGISTER = 10
 } SSCB_Register;

@@ -50,6 +50,8 @@ char *get_instruction_as_string(SSCB_PackedInstruction instruction) {
             return "CALL";
         case 15:
             return "RETURN";
+        case 16:
+            return "DEFINE BYTE";
         default:
             return "UNKNOWN";
     }
@@ -118,9 +120,15 @@ SSCB_Operand mem_operand(unsigned int mem_addr) {
     return operand;
 }
 
-SSCB_Operand label_operand(const char *label) {
+SSCB_Operand label_operand(const char *label, ...) {
+    char *string = malloc(sizeof(char *) * 256);
+    va_list ptr;
+    va_start(ptr, label);
+    
+    vsnprintf(string, 256, label, ptr); 
+    
     SSCB_Operand operand;
-    operand.label = label;
+    operand.label = string;
     operand.op_type = OP_LABEL;
     return operand;
 }
