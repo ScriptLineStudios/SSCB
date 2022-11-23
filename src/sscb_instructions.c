@@ -6,6 +6,7 @@
 
 #include "../include/sscb_instructions.h"
 #include "../include/sscb_optimizer.h"
+#include "../include/sscb_codegen.h"
 
 unsigned int instruction_num;
 SSCB_PackedInstruction *instructions;
@@ -145,4 +146,8 @@ void optimise_generated_instructions(int passes) {
     OptimisationAnalysis analysis = optimize_instructions(instructions, instruction_num, passes);
     instructions = analysis.new_instructions;
     instruction_num = analysis.number_instructions;
+}
+
+void codegen_generated_instructions(int target) {
+    codegen_instructions(instructions, instruction_num, target);
 }

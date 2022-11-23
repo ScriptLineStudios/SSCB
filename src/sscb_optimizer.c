@@ -17,7 +17,6 @@ OptimisationAnalysis optimize_instructions(SSCB_PackedInstruction *instructions,
             SSCB_PackedInstruction ins = instructions[i];
 
             new_instruction_list[new_instruction_count - 1] = ins;
-
             if (prev_instruction == INS_PUSH && ins.instruction_type == INS_POP) {
                 new_instruction_list[new_instruction_count - 2] = create_instruction(INS_NOP, 0);        
                 new_instruction_list[new_instruction_count - 1] = create_instruction(INS_MOV, 2, ins.operands[0], prev_operands[0]);        

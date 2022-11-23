@@ -38,7 +38,7 @@ typedef struct {
 typedef struct {    
     SSCB_Instruction instruction_type;
     SSCB_Operand *operands;
-    unsigned num_operands; 
+    unsigned int num_operands; 
 } SSCB_PackedInstruction;
  
 #define ADD_INS_1(type, ...) instruction_add(create_instruction(type, 1, __VA_ARGS__));
@@ -77,4 +77,8 @@ void print_instructions();
 SSCB_PackedInstruction create_instruction(SSCB_Instruction instruction, int num_operands, ...);
 SSCB_ErrorCode instruction_add(SSCB_PackedInstruction contents);
 void optimise_generated_instructions(int passes);
+
+#include "sscb_codegen.h"
+void codegen_generated_instructions(int target);
+
 

@@ -2,20 +2,18 @@
 #include <stdlib.h>
 
 #include "../include/sscb_instructions.h"
-#include "../include/sscb_optimizer.h"
+#include "../include/sscb_codegen.h"
 
 int main(void) {
     instruction_setup();
 
-    LABELDEF(LABEL("Hello World"));
-    PUSH(IMM(1));
+    FUNCTIONEXTERN(FUNCTION("printf"));
+    PUSH(IMM(10));
     POP(REG(R1));
-    PUSH(IMM(200));
-    POP(REG(R2));
-    JMP(LABEL("Hello World"));
 
-    optimise_generated_instructions(1);
+    optimise_generated_instructions(1); //TODO: make passes actually work
     print_instructions();
+    codegen_generated_instructions(INTEL_x86_64_LINUX);
     
     return 0;
 }
