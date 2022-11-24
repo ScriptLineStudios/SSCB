@@ -75,7 +75,7 @@ void print_instructions() {
                 printf("(IMM: %d) ", op.imm);
             }
             else if (op.op_type == OP_MEM) {
-                printf("(MEM: %d) ", op.mem);
+                printf("(MEM: %d) ", op.mem_addr);
             }
             else if (op.op_type == OP_LABEL) {
                 printf("(LABEL: %s) ", op.label);
@@ -115,9 +115,10 @@ SSCB_Operand imm_operand(int imm) {
     return operand;
 }
 
-SSCB_Operand mem_operand(unsigned int mem_addr) {
+SSCB_Operand mem_operand(const char *label, unsigned int mem_addr) {
     SSCB_Operand operand;
-    operand.mem = mem_addr;
+    operand.label = label;
+    operand.mem_addr = mem_addr;
     operand.op_type = OP_MEM;
     return operand;
 }

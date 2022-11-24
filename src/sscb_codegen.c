@@ -7,8 +7,6 @@
 #include "../include/codegen/intel_x86_64_linux.h"
 #include "../include/codegen/intel_x86_linux.h"
 
-#define WRITE(...) fprintf(file_ptr, __VA_ARGS__)
-
 void codegen_instructions(SSCB_PackedInstruction *instructions, unsigned int instruction_num, CodegenTarget target) {
     switch (target) {
         case INTEL_x86_64_LINUX:

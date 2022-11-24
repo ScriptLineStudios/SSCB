@@ -19,3 +19,4 @@ typedef enum {
     ARGREGISTER5 = 15,
     ARGREGISTER6 = 16,
 } SSCB_Register;
+

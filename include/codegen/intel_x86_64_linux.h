@@ -38,7 +38,7 @@ void codegen_intel_x86_64_linux(SSCB_PackedInstruction *instructions, unsigned i
                         WRITE("%d, ", ins.operands[j].imm);
                         break;
                     case OP_MEM:
-                        WRITE("MEM");
+                        WRITE("[%s+%d], ", ins.operands[j].label, ins.operands[j].mem_addr);
                         break;
                     case OP_LABEL:
                         WRITE("%s", ins.operands[j].label);

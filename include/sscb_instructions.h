@@ -39,7 +39,7 @@ typedef struct {
     SSCB_OperandType op_type;
     int imm;
     SSCB_Register reg;
-    unsigned int mem;
+    unsigned int mem_addr;
     const char *label;
 } SSCB_Operand;
 
@@ -75,7 +75,7 @@ typedef struct {
 
 #define IMM(i) imm_operand(i)
 #define REG(r) reg_operand(r)
-#define MEM(m) mem_operand(m)
+#define MEM(m, i) mem_operand(m, i)
 #define LABEL(m) label_operand(m)
 #define FUNCTION(m) label_operand(m) //litrally just an alias
 #define STRING(m, ...) label_operand(m, __VA_ARGS__) //litrally just a fancy alias
@@ -87,7 +87,7 @@ SSCB_ErrorCode instruction_setup(void);
 
 SSCB_Operand reg_operand(SSCB_Register reg);
 SSCB_Operand imm_operand(int imm);
-SSCB_Operand mem_operand(unsigned int mem_addr);
+SSCB_Operand mem_operand(const char *label, unsigned int mem_addr);
 SSCB_Operand label_operand(const char *label, ...);
 
 void print_instructions();
