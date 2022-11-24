@@ -1,6 +1,6 @@
 #pragma once
 
-char *intel_x86_64_linux_registers[] = {"rdi", "rsi", "rdx", "rcx", "r8", "r9", "r10", "r11", "r12", "r13", "rax", 
+char *intel_x86_64_linux_registers[] = {"rax", "rbx", "rcx", "rdx", "r8", "r9", "r10", "r11", "r12", "r13", "rax", 
 "rdi", "rsi", "rdx", "rcx", "r8", "r9"};
 char *intel_x86_64_linux_instructions[] = {
     "nop", "push", "pop", "mov", "jmp", "cmp", "jnz", ":", ":", "extern", "add", "sub", "div", "mul", "call", "ret", "db", "xor"

@@ -8,21 +8,21 @@ int main(void) {
     instruction_setup();
 
     FUNCTIONEXTERN(FUNCTION("printf"));
-    FUNCTIONEXTERN(FUNCTION("exit"));
-
-    MOV(REG(ARGREGISTER1), STRING("string_%d", 10)); 
-    XOR(REG(RETURNREGISTER), REG(RETURNREGISTER));
+    MOV(REG(R2), IMM(2));
+    LABELDEF(LABEL("jump_pos"));
+    ADD(REG(R2), REG(R2));
+    MOV(REG(R1), REG(R2));
+    MOV(REG(ARGREGISTER1), LABEL("format"));
+    MOV(REG(ARGREGISTER2), REG(R1));
+    XOR(REG(R1), REG(R1));
     CALL(FUNCTION("printf"));
-    MOV(REG(ARGREGISTER1), IMM(0));
-    CALL(FUNCTION("exit"));
-    RETURN();
+    JMP(LABEL("jump_pos"));
 
-    LABELDEF(STRING("string_%d", 10));
-    DEFINEBYTE(STRING("`Helllo World!\\n`", 10));
+    LABELDEF(LABEL("format"));
+    DEFINEBYTE(STRING("%s, 10", "`%d`"));
 
     optimise_generated_instructions(1); //TODO: make passes actually work
-    //print_instructions();
-    codegen_generated_instructions(INTEL_x86_LINUX);
+    codegen_generated_instructions(INTEL_x86_64_LINUX);
     
     return 0;
 }
