@@ -4,6 +4,10 @@ Simple Stack-based Compiler Backend. An easy to use compiler backend for generat
 # How it works
 SSCB provides an easy to use API which allows you to generate intermediate representation (IR) which can then be optimised and compiled into different assembly languages. Small Example:
 
+# Targets
+- Intel x86_64 Linux
+- Intel x86 Linux
+
 ```C
 #include "include/sscb_instructions.h"
 #include "include/sscb_codegen.h"
