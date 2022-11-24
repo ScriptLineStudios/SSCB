@@ -11,6 +11,10 @@
 unsigned int instruction_num;
 SSCB_PackedInstruction *instructions;
 
+unsigned int number_queued_instructions;
+SSCB_PackedInstruction *queued_instructions;
+
+
 void raise_fatal_error() {
     fprintf(stderr, "SSCB FAILED WITH FATAL ERROR\n");
     exit(1);
@@ -153,6 +157,8 @@ SSCB_PackedInstruction create_instruction(SSCB_Instruction instruction, int num_
 }
 
 SSCB_ErrorCode instruction_setup(void) {
+    number_queued_instructions = 0;
+    queued_instructions = malloc(sizeof(SSCB_PackedInstruction) * 1000);
     instruction_num = 1;
     instructions = malloc_instructions(instructions, sizeof(SSCB_PackedInstruction) * instruction_num);
     return OK;

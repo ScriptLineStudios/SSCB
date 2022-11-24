@@ -49,29 +49,41 @@ typedef struct {
     unsigned int num_operands; 
 } SSCB_PackedInstruction;
  
-#define ADD_INS_0(type) instruction_add(create_instruction(type, 0));
-#define ADD_INS_1(type, ...) instruction_add(create_instruction(type, 1, __VA_ARGS__));
-#define ADD_INS_2(type, ...) instruction_add(create_instruction(type, 2, __VA_ARGS__));
-#define ADD_INS_3(type, ...) instruction_add(create_instruction(type, 3, __VA_ARGS__));
-#define ADD_INS_4(type, ...) instruction_add(create_instruction(type, 4, __VA_ARGS__));
+#define ADD_INS_0(type)      instruction_add(create_instruction(type, 0))
+#define ADD_INS_1(type, ...) instruction_add(create_instruction(type, 1, __VA_ARGS__))
+#define ADD_INS_2(type, ...) instruction_add(create_instruction(type, 2, __VA_ARGS__))
+#define ADD_INS_3(type, ...) instruction_add(create_instruction(type, 3, __VA_ARGS__))
+#define ADD_INS_4(type, ...) instruction_add(create_instruction(type, 4, __VA_ARGS__))
 
-#define PUSH(...)           ADD_INS_1(INS_PUSH, __VA_ARGS__);
-#define POP(...)            ADD_INS_1(INS_POP, __VA_ARGS__);
-#define MOV(...)            ADD_INS_2(INS_MOV, __VA_ARGS__);
-#define CMP(...)            ADD_INS_2(INS_CMP, __VA_ARGS__);
-#define JMP(...)            ADD_INS_1(INS_JMP, __VA_ARGS__);
-#define JNZ(...)            ADD_INS_1(INS_JNZ, __VA_ARGS__);
-#define LABELDEF(...)       ADD_INS_1(INS_LABELDEF, __VA_ARGS__);
-#define FUNCTIONDEF(...)    ADD_INS_1(INS_FUNCTIONDEF, __VA_ARGS__);
-#define FUNCTIONEXTERN(...) ADD_INS_1(INS_FUNCTIONEXTERN, __VA_ARGS__);
-#define XOR(...)            ADD_INS_2(INS_XOR, __VA_ARGS__);
-#define ADD(...)            ADD_INS_2(INS_ADD, __VA_ARGS__);
-#define SUB(...)            ADD_INS_2(INS_ADD, __VA_ARGS__);
-#define DIV(...)            ADD_INS_2(INS_ADD, __VA_ARGS__);
-#define MUL(...)            ADD_INS_2(INS_ADD, __VA_ARGS__);
-#define CALL(...)           ADD_INS_1(INS_CALL, __VA_ARGS__);
-#define RETURN()            ADD_INS_0(INS_RETURN);
-#define DEFINEBYTE(...)     ADD_INS_1(INS_DB, __VA_ARGS__);
+#define PUSH(...)           ADD_INS_1(INS_PUSH, __VA_ARGS__)
+#define POP(...)            ADD_INS_1(INS_POP, __VA_ARGS__)
+#define MOV(...)            ADD_INS_2(INS_MOV, __VA_ARGS__)
+#define CMP(...)            ADD_INS_2(INS_CMP, __VA_ARGS__)
+#define JMP(...)            ADD_INS_1(INS_JMP, __VA_ARGS__)
+#define JNZ(...)            ADD_INS_1(INS_JNZ, __VA_ARGS__)
+#define LABELDEF(...)       ADD_INS_1(INS_LABELDEF, __VA_ARGS__)
+#define FUNCTIONDEF(...)    ADD_INS_1(INS_FUNCTIONDEF, __VA_ARGS__)
+#define FUNCTIONEXTERN(...) ADD_INS_1(INS_FUNCTIONEXTERN, __VA_ARGS__)
+#define XOR(...)            ADD_INS_2(INS_XOR, __VA_ARGS__)
+#define ADD(...)            ADD_INS_2(INS_ADD, __VA_ARGS__)
+#define SUB(...)            ADD_INS_2(INS_ADD, __VA_ARGS__)
+#define DIV(...)            ADD_INS_2(INS_ADD, __VA_ARGS__)
+#define MUL(...)            ADD_INS_2(INS_ADD, __VA_ARGS__)
+#define CALL(...)           ADD_INS_1(INS_CALL, __VA_ARGS__)
+#define RETURN()            ADD_INS_0(INS_RETURN)
+#define DEFINEBYTE(...)     ADD_INS_1(INS_DB, __VA_ARGS__)
+
+extern SSCB_PackedInstruction *queued_instructions;
+extern unsigned int number_queued_instructions;
+
+
+#define QUEUE_0(type)      queued_instructions[number_queued_instructions++] = create_instruction(type, 0)
+#define QUEUE_1(type, ...) queued_instructions[number_queued_instructions++] = create_instruction(type, 1, __VA_ARGS__)
+#define QUEUE_2(type, ...) queued_instructions[number_queued_instructions++] = create_instruction(type, 2, __VA_ARGS__)
+#define QUEUE_3(type, ...) queued_instructions[number_queued_instructions++] = create_instruction(type, 3, __VA_ARGS__)
+#define QUEUE_4(type, ...) queued_instructions[number_queued_instructions++] = create_instruction(type, 4, __VA_ARGS__)
+
+#define EMPTY_QUEUE() for (unsigned int i = 0; i < number_queued_instructions; i++) {instruction_add(queued_instructions[i]);}
 
 #define IMM(i) imm_operand(i)
 #define REG(r) reg_operand(r)
