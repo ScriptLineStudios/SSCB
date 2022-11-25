@@ -76,7 +76,6 @@ typedef struct {
 extern SSCB_PackedInstruction *queued_instructions;
 extern unsigned int number_queued_instructions;
 
-
 #define QUEUE_0(type)      queued_instructions[number_queued_instructions++] = create_instruction(type, 0)
 #define QUEUE_1(type, ...) queued_instructions[number_queued_instructions++] = create_instruction(type, 1, __VA_ARGS__)
 #define QUEUE_2(type, ...) queued_instructions[number_queued_instructions++] = create_instruction(type, 2, __VA_ARGS__)
