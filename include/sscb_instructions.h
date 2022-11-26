@@ -21,6 +21,8 @@ typedef enum {
     INS_RETURN = 15,
     INS_DB = 16,
     INS_XOR = 17,
+    INS_JNE = 18,
+    INS_JE =  19,
 } SSCB_Instruction;
 
 typedef enum {
@@ -61,6 +63,8 @@ typedef struct {
 #define CMP(...)            ADD_INS_2(INS_CMP, __VA_ARGS__)
 #define JMP(...)            ADD_INS_1(INS_JMP, __VA_ARGS__)
 #define JNZ(...)            ADD_INS_1(INS_JNZ, __VA_ARGS__)
+#define JNE(...)            ADD_INS_1(INS_JNZ, __VA_ARGS__)
+#define JE(...)             ADD_INS_1(INS_JNZ, __VA_ARGS__)
 #define LABELDEF(...)       ADD_INS_1(INS_LABELDEF, __VA_ARGS__)
 #define FUNCTIONDEF(...)    ADD_INS_1(INS_FUNCTIONDEF, __VA_ARGS__)
 #define FUNCTIONEXTERN(...) ADD_INS_1(INS_FUNCTIONEXTERN, __VA_ARGS__)
