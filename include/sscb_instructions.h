@@ -73,7 +73,7 @@ typedef struct {
 #define FUNCTIONEXTERN(...) ADD_INS_1(INS_FUNCTIONEXTERN, __VA_ARGS__)
 #define XOR(...)            ADD_INS_2(INS_XOR, __VA_ARGS__)
 #define OR(...)             ADD_INS_2(INS_OR, __VA_ARGS__)
-#define NOT(...)            ADD_INS_2(INS_NOT, __VA_ARGS__)
+#define NOT(...)            ADD_INS_1(INS_NOT, __VA_ARGS__)
 #define ADD(...)            ADD_INS_2(INS_ADD, __VA_ARGS__)
 #define SUB(...)            ADD_INS_2(INS_SUB, __VA_ARGS__)
 #define DIV(...)            ADD_INS_2(INS_DIV, __VA_ARGS__)
