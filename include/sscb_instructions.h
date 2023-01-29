@@ -23,6 +23,7 @@ typedef enum {
     INS_XOR = 17,
     INS_JNE = 18,
     INS_JE =  19,
+    INS_PUSHFLAGS = 20,
 } SSCB_Instruction;
 
 typedef enum {
@@ -76,6 +77,7 @@ typedef struct {
 #define CALL(...)           ADD_INS_1(INS_CALL, __VA_ARGS__)
 #define RETURN()            ADD_INS_0(INS_RETURN)
 #define DEFINEBYTE(...)     ADD_INS_1(INS_DB, __VA_ARGS__)
+#define PUSH_FLAGS(...)     ADD_INS_0(INS_PUSHFLAGS)
 
 extern SSCB_PackedInstruction *queued_instructions;
 extern unsigned int number_queued_instructions;
