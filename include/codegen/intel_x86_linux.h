@@ -2,7 +2,7 @@
 
 char *intel_x86_linux_registers[] = {"edi", "esi", "edx", "ecx", "e8", "e9", "e10", "e11", "e12", "e13", "eax", "push", "push"};
 char *intel_x86_linux_instructions[] = {
-    "nop", "push", "pop", "mov", "jmp", "cmp", "jnz", ":", ":", "extern", "add", "sub", "div", "mul", "call", "ret", "db", "xor", "jne", "je", "pushf"
+    "nop", "push", "pop", "mov", "jmp", "cmp", "jnz", ":", ":", "extern", "add", "sub", "div", "mul", "call", "ret", "db", "xor", "jne", "je", "pushf", "or"
 };
 
 int current_pointer = 0;
