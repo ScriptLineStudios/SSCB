@@ -24,7 +24,7 @@ typedef enum {
     INS_JNE = 18,
     INS_JE =  19,
     INS_PUSHFLAGS = 20,
-    OR = 21
+    INS_OR = 21,
 } SSCB_Instruction;
 
 typedef enum {
